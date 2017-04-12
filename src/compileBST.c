@@ -18,37 +18,40 @@
 #include "BST.h"
 
 static int BSTroot;
-static int BSTTree[][2];
+static int **BSTtree;
 
 
-int read(FILE *freqFile, int **tab, int n) {
-  int i;
+int read(FILE *freqFile, int *tab, int n) {
+  int i = 0;
   int count = 0;
-  if (size <= 0) {
+  if (n <= 0) {
     printf("Erreur: taille invalide.");
-    return EXIT_FAILURE; 
-  } 
+    return EXIT_FAILURE;
+  }
   else if (!tab) {
     printf("Erreur: Tableau invalide");
     return EXIT_FAILURE;
   }
-  else if (!file) {
+  else if (!freqFile) {
     printf("Erreur: Fichier invalide");
     return EXIT_FAILURE;
   }
-  fscanf(freqFile, "%d", &i);
-  while (i != EOF && count <= n) {
-    tab[i][0]=i;
+
+  while (i != EOF && count < n) {
     fscanf(freqFile, "%d", &i);
+    printf("%d -",i);
+    tab[i]=i;
+    count++;
   }
   return EXIT_SUCCESS;
 }
 
-void afficheBST(int n) 
+
+void afficheBST(int n)
 {
-	for(int i = 0; i < n; ++i)
-		printf("{%d,%d}\n", BSTTree[i][0], BSTTree[i][0]);
-	
+	for(int i = 0; i < n; ++i) {
+		printf("{%d,%d}\n", BSTtree[i][0], BSTtree[i][0]);
+  }
 }
 
 
@@ -122,7 +125,7 @@ int main (int argc, char *argv[]) {
   if (freqFile==NULL) {fprintf (stderr, "!!!!! Error opening originalFile !!!!!\n"); exit(EXIT_FAILURE);}
 
   // Tableau pour stocker les valeurs lues
-  int tab[2][n];
+  int tab[n];
   read(freqFile, tab, n);
   fclose(freqFile);
 

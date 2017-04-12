@@ -1,0 +1,6 @@
+Benchmark 1: 0.002s
+Benchmark 2: 0.002s
+Benchmark 3: 3.386s
+Benchmark 4: 35.754s
+Benchmark 5: 129.966s
+Benchmark 6: 599.534s

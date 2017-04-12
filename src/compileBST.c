@@ -24,6 +24,18 @@ static int BSTTree[][2];
 int read(FILE *freqFile, int **tab, int n) {
   int i;
   int count = 0;
+  if (size <= 0) {
+    printf("Erreur: taille invalide.");
+    return EXIT_FAILURE; 
+  } 
+  else if (!tab) {
+    printf("Erreur: Tableau invalide");
+    return EXIT_FAILURE;
+  }
+  else if (!file) {
+    printf("Erreur: Fichier invalide");
+    return EXIT_FAILURE;
+  }
   fscanf(freqFile, "%d", &i);
   while (i != EOF && count <= n) {
     tab[i][0]=i;

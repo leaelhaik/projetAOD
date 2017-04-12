@@ -21,7 +21,7 @@ static int BSTroot;
 static int **BSTtree;
 
 
-int read(FILE *freqFile, int *tab, int n) {
+int read(FILE *freqFile, double *tab, int n) {
   int i = 0;
   int count = 0;
   if (n <= 0) {
@@ -40,7 +40,7 @@ int read(FILE *freqFile, int *tab, int n) {
   while (i != EOF && count < n) {
     fscanf(freqFile, "%d", &i);
     printf("%d -",i);
-    tab[i]=i;
+    tab[i]= (double) i;
     count++;
   }
   return EXIT_SUCCESS;
@@ -125,13 +125,13 @@ int main (int argc, char *argv[]) {
   if (freqFile==NULL) {fprintf (stderr, "!!!!! Error opening originalFile !!!!!\n"); exit(EXIT_FAILURE);}
 
   // Tableau pour stocker les valeurs lues
-  int tab[n];
+  double* tab = (double*) malloc(sizeof(double)*n);
   read(freqFile, tab, n);
 
   
   
   fclose(freqFile);
-
+  free(tab);
 
   return 0;
 }

@@ -128,6 +128,9 @@ int main (int argc, char *argv[]) {
   // Tableau pour stocker les valeurs lues
   int tab[n];
   read(freqFile, tab, n);
+
+  
+  
   fclose(freqFile);
 
 

@@ -17,9 +17,6 @@
 
 #include "BST.h"
 
-static int BSTroot;
-static int BSTTree[][2];
-
 /**
  * Main function
  * \brief Main function

@@ -1,0 +1,216 @@
+\documentclass[a4paper,10pt,french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{amsfonts}
+\usepackage{amsmath,amssymb}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{pgf}
+\usepackage{amsthm} % pour les théorèmes et démos
+\usepackage[margin=1.7cm]{geometry}
+\usepackage[bookmarks=true,hidelinks]{hyperref}
+\usepackage{framed}
+\usepackage{wasysym}
+\usepackage{epsf}
+\usepackage{epsfig}
+
+\def\saut#1{\vspace{#1\baselineskip}}
+
+\newtheorem*{lemme}{Lemme}
+\newcommand{\suchthat}{\;\ifnum\currentgrouptype=16 \middle\fi|\;}
+\renewcommand{\thefootnote}{(\arabic{footnote})}
+\renewcommand{\ker}{\mathrm{Ker}}
+\newcommand{\dsp}{\displaystyle}
+
+\def\dx{\,dx}
+\def\dt{\,dt}
+\def\ito{,\dotsc,}
+\def\entiern{\mathbb{N}}
+\def\entierr{\mathbb{Z}}
+\def\rationnel{\mathbb{Q}}
+\def\irrationnel{\mathbb{R}\setminus\mathbb{Q}}
+\def\reel{\mathbb{R}}
+\def\complexe{\mathbb{C}}
+\def\unitaire{\mathbb{U}}
+\def\im{\mathrm{Im}}
+\def\rg{\mathrm{rg}}
+\def\tr{\mathrm{tr}}
+\def\deg{\mathrm{deg}}
+\def\polyz{\mathbb{Z}[X]}
+\def\polyr{\mathbb{R}[X]}
+\def\mnr{\mathrm{M}_n(\mathbb{R})}
+\def\mnc{\mathrm{M}_n(\mathbb{C})}
+\def\glnr{\mathrm{GL}_n(\mathbb{R})}
+\def\glnc{\mathrm{GL}_n(\mathbb{C})}
+\def\onr{\mathrm{O}_n(\mathbb{R})}
+\def\snr{\mathrm{S}_n(\mathbb{R})}
+\def\snrp{\mathrm{S}_n^+(\mathbb{R})}
+\def\cinfinir{C^\infty(\mathbb{R},\mathbb{R})}
+\def\tribu{\mathcal{A}}
+
+\def\compl#1{{#1}^c} %complémentaire d'un ensemble
+\def\restri#1#2{#1_{\mid #2}} %restriction d'une application
+\def\module#1{\left\vert#1\right\vert} %module d'un complexe
+\def\norme#1{\left\|#1\right\|} %norme d'un vecteur
+\def\prodscal#1#2{\langle#1,#2\rangle} %produit scalaire de 2 vecteurs
+\def\normeinf#1{\left\|#1\right\|_{\infty}} %norme infinie
+\def\adh#1{\overline{#1}} %adhérence d'un ensemble
+\def\segN#1#2{[\![#1,#2]\!]} %segments d'entiers
+\def\s#1{\mathfrak{S}_{#1}} %groupe des permutations S_n
+\def\ppolyr#1{\mathbb{R}[#1]} %polynomes de R[indeterminée]
+\def\ppolyrn#1{\mathbb{R}_{#1}[X]} %polynomes de R_n[X]
+\def\czeror#1{C^0(#1,\mathbb{R})} %C0(I,R)
+\def\cinfinir#1{C^\infty(#1,\mathbb{R})} %Cinfini(I,R)
+\def\transc#1{^t\overline{#1}} %transconjugué d'une matrice
+\def\proba#1{\mathbb{P}\left(#1\right)} %probabilité
+\def\esperance#1{\mathbb{E}\left[#1\right]} %espérance
+
+\def\etats{\mathcal{X}} %ensemble d'états du système
+\def\decisions{\mathcal{U}} %ensemble de décisions
+
+\parindent=0cm %Supprime les alinéas automatiques
+
+\title{\vspace{-1.7cm}Rapport de TP 4MMAOD : Génération d’ABR optimal}
+\author{\begin{tabular}{cc}
+		\textsc{Samy Amraoui} & \textsc{Matthieu Charly-Desroches} \\
+		\small samy.amraoui@ensimag.grenoble-inp.fr &
+		\small matthieu-charly-desroches@ensimag.grenoble-inp.fr
+	\end{tabular}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Équation de Bellman}
+
+\subsection*{Question 1}
+
+Considérons l'ensemble d'élements $e_0<e1<\dots<e_{n-1}$ associés aux probabilités $(p_i)_{0\leq i\leq n-1}$.  Soit $A$ un ABR \textit{optimal} pour les $(e_i)$, i.e. minimisant la quantité $\dsp\sum_{i=0}^{n-1}p_i\Delta_A(e_i)$.
+Soit $B$ un sous-arbre de $A$ qui contient les noeuds $e_0<e1<\dots<e_{m-1}$ avec $m\leq n$, et supposons que ce dernier n'est pas optimal.
+Comme $B$ est un sous-arbre, il existe une constance $\delta\in\entiern$ telle que pour tout $i\in\segN{0}{m-1},\Delta_B(e_i)=\Delta_A(e_i)-\delta$. Or $B$ n'est pas optimal, donc il existe un arbre $C$ reprenant les noeuds de $B$ tel que $\dsp\sum_{i=0}^{m-1}p_i\Delta_C(e_i)<\sum_{i=0}^{m-1}p_i\Delta_B(e_i)$. On a alors :
+$$\dsp\sum_{i=0}^{m-1}p_i\Delta_C(e_i)+\delta\left(\sum_{i=0}^{m-1}p_i\right)+\sum_{i=m}^{n-1}p_i\Delta_A(e_i)<\sum_{i=0}^{m-1}p_i\Delta_A(e_i)+\sum_{i=m}^{n-1}p_i\Delta_A(e_i)$$
+En remplaçant le sous-arbre $B$ par $C$ dans $A$, on en déduit que $\forall i\in\segN{1}{m-1},\Delta_C(e_i)+\delta=\Delta_{A'}(e_i)$ où $A'$ est le nouvel arbre formé, donc on a :
+\begin{align*}
+    \sum_{i=0}^{m-1}p_i\Delta_{A'}(e_i)+\sum_{i=m}^{n-1}p_i\Delta_A(e_i)&<\sum_{i=0}^{m-1}p_i\Delta_A(e_i)+\sum_{i=m}^{n-1}p_i\Delta_A(e_i) \\
+    \sum_{i=0}^{n-1}p_i\Delta_{A'}(e_i)&<\sum_{i=0}^{n-1}p_i\Delta_A(e_i)
+\end{align*}
+ce qui est contradictoire avec le fait que $A$ est un ABR \textit{optimal}.
+
+\saut{1}
+
+Pour calculer le coût de recherche d'un élément $e_i$ de manière récursive en partant de la racine de l'ABR, on remarque qu'il suffit de sommer $p_i$ à chaque descente dans les sous-arbres gauches et droits tant qu'on ne l'a pas trouvé. On peut alors obtenir récursivement le produit $p_i\Delta_A(e_i)$.
+Soit $C_{i,j}$ le coût de calcul de l'ABR optimal pour les éléments $e_i<\dots<e_j$. Considérons que $e_r$ où $r\in\segN{i}{j}$ soit le noeud racine de cet ABR. On en déduit alors que :
+$$C_{i,j}=\min_{r=i\dots j}\left\lbrace\underbrace{C_{i,r-1}+\sum_{k=i}^{r-1}p_k}_{\text{sous-arbre gauche}}+p_r+\underbrace{C_{r+1}+\sum_{k=r+1}^jp_k}_{\text{sous-arbre droit}}\right\rbrace=\sum_{k=i}^jp_k+\min_{r=i\dots j}\left\lbrace C_{i,r-1}+C_{r+1,j}\right\rbrace$$
+avec comme conditions aux bords : $\forall i\in\segN{0}{n-1},C_{i,i}=p_i$ et $\forall i>j,C_{i,j}=0$.
+
+\subsection*{Question 2}
+
+Les calculs des sommes $\sum_{k=i}^jp_k$ pour $0\leq i\leq j\leq n-1$ peut se faire en $\Theta(n^2)$ additions en stockant en mémoire les sous-sommes successives de la forme $\sum_{k=i}^jp_k=\sum_{k=i}^{j-1}p_k+p_j$.
+Pour le calcul récursif du coût minimum des sous-arbres, on utilise une boucle \texttt{for} sur tous les couples $(i,j)$ avec $0\leq i\leq j\leq n-1$ soit $\Theta(n^2)$ opérations à l'intérieur desquelles on va itérer sur l'indice $r$ entre $i$ et $j$ qui sera retenu comme minimum, il s'agit d'une boucle \texttt{for} interne en $\Theta(n)$.
+On en déduit au total un coût en $\Theta(n^3)$ opérations.
+
+\saut{1}
+
+Au niveau du coût en mémoire, l'algorithme nécessite de stocker les valeurs des $C_{i,j}$ où $0\leq i\leq j\leq n-1$ dans une matrice triangulaire de taille $n\times n$ et les $\sum_{k=i}^jp_k$ où $0\leq i\leq j\leq n-1$ de même dans une autre matrice triangulaire de taille $n\times n$, soit un coût total en mémoire en $\Theta(n^2)$.
+
+\section{Principe de notre programme}
+Le programme se base sur le principe que tout sous-arbre d'un ABR optimal est lui-même un ABR optimal.
+Initialement, après avoir calculer les fréquences de tirage de chaque élément, le programme parcours détermine la racine de l'ABR optimal en parcourant l'ensemble des sommets avec une boucle \texttt{for} et en calculant à chaque fois le coût engendré par le choix de chaque noeud pour racine.
+Après avoir choisi la racine, il détermine récursivement les autres noeuds de l'ABR (qui sont
+les racines des sous-arbres de l'ABR principal) en itérant sur les noeuds restants à gauche et à droite de la racine (diviser pour régner).
+À chaque étape de la récursivité, le programme actualise le coût de l'ABR optimal et la matrice des racines \texttt{root}, où \texttt{root[i][j]} désigne la racine de l'ABR optimal formé des noeuds $i$ à $j$.
+Enfin, le programme construit récursivement l'ABR optimal \texttt{BSTtree} en parcourant \texttt{root}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analyse du coût théorique}
+
+\subsection{Nombre  d'opérations en pire cas\,: $\Theta(n^3)$}
+\paragraph{Justification\,: }
+La fonction \texttt{init\_freqmatrix} initialise la matrice \texttt{freqmat} en affectant à \texttt{freqmat[i][j]} la valeur $\dsp\sum_{k=i}^j f(k)$ pour $i\leq j$.
+L'algorithme utilise le principe de mémoïsation : il réutilise la valeur de $\dsp\sum_{k=i}^{j-1}f(k)$ pour calculer $\dsp\sum_{k=i}^jf(k)=\sum_{k=i}^{j-1}f(k)+f(j)$.
+Les \texttt{freqmat[i][j]} sont calculés à l'aide de deux boucles \texttt{for} imbriquées qui parcourt la partie triangulaire supérieure de la matrice, soit $\Theta(n^2/2)$ additions.
+\saut{1}\\
+La fonction \texttt{optCost} avec comme paramètres $i$ et $j>i$ effectue $\Theta(j-i)$ opérations. Donc l'appel de \texttt{optCost} dans \texttt{optBSTcost} effectue $j$ opérations soit au total :
+\begin{align*}
+    \sum_{j=0}^{n-1}\sum_{i=0}^{n-j}j&=\sum_{j=0}^{n-1}j(n-j+1) \\
+    &=\sum_{j=0}^{n-1}(n+1)j-\sum_{j=0}^{n-1}j^2 \\
+    &=\frac{n(n-1)(n+1)}{2}-\frac{n(n-1)(2n-1)}{6} \\
+    &=\frac{1}{6}\left[3n(n-1)(n+1)-n(n-1)(2n-1)\right] \\
+    &=\frac{1}{6}\left[3n^3-3n-2n^3+3n^2-n\right] \\
+    &=\frac{n^3+n^2-4n}{6}
+\end{align*}
+donc un coût théorique en $\Theta(n^3)$.
+La fonction \texttt{BSTcreate} se contente de parcourir récursivement l'ensemble des racines de la matrice \texttt{root}, ce qui coûte $\Theta(n)$ opérations élémentaires (c'est le nombre de noeuds de l'ABR).
+\saut{1}\\
+On en conclut que le coût théorique est en $\Theta(n^3)$.
+
+\subsection{Place mémoire requise\,: $\Theta(n^2)$}
+\paragraph{Justification\,: }
+En plus des variables locales des différentes fonctions, le programme utilise le tableau \texttt{BSTtree[][2]} de $2n$ cases, ainsi que les matrices \texttt{freqmatrix}, \texttt{costmatrix} et \texttt{root} de taille $n^2$ soit une utilisation mémoire totale en $3n^2+2n+O(1)=\Theta(n^2)$
+
+\subsection{Nombre de défauts de cache sur le modèle CO\,: $\Theta(n^2)$}
+\paragraph{Justification\,: }
+Soit $Z$ la taille du cache et $L$ la taille d'un bloc, c'est-à-dire que le cache contient $Z/L$ blocs (modèle CO).
+Dans la fonction \texttt{init\_freqmatrix}, la partie triangulaire supérieure de la matrice \texttt{freqmat} est parcourue selon les lignes, ce qui engendre $\dsp\frac{n}{L}$ défauts de cache.
+Une exécution de la boucle \texttt{for} de la fonction \texttt{optCost} avec comme paramètres $i$ et $j\geq i$ provoque $\dsp\frac{j-i}{L}$ défauts de cache, soit au total après exécution de \texttt{optBSTcost} : $$\sum_{0\leq i\leq j\leq n}\frac{j-i}{L}=\frac{1}{L}\sum_{k=0}^n k=\frac{n(n+1)}{2L}$$ défauts de cache. On en déduit au total $\Theta(n^2)$ défauts de cache.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Compte rendu d'expérimentation}
+\subsection{Conditions expérimentaless}
+
+\subsubsection{Description synthétique de la machine}
+Le programme a été lancé sur une machine avec ArchLinux, et compilé avec gcc 6.2.1.
+L'ordinateur possède 4GB de RAM, un processeur i5-1.6GHz avec deux coeurs physiques et l'hyperthreading activé.
+L'ordinateur n'avait pas de connexion Internet, très peu de processus en train de tourner, en soit il a été
+monopolisé pour ces tests.
+Le temps a été mesuré à l'aide de la commande \texttt{/usr/bin/time} en utilisant le temps réel qui s'est déroulé.
+
+\subsubsection{Méthode utilisée pour les mesures de temps}
+Afin d'effectuer les mesures de temps nous avons appelé la fonction \texttt{/usr/bin/time} pour mesurer le temps d'exécution
+de chaque appel. Nous appelions la fonction principale en passant en paramètre le nombre d'éléments dans le fichier
+et le fichier contenant les fréquences. Nous exécutons les 5 itérations du \texttt{benchmark1} puis les 5 du \texttt{benchmark2}, et ainsi de suite.
+
+\subsection{Mesures expérimentales}
+
+\begin{figure}[h]
+    \begin{center}
+        \begin{tabular}{|l||r||r|r|r||}
+            \hline
+            \hline
+            & temps     & temps   & temps \\
+            & min       & max     & moyen \\
+            \hline
+            \hline
+            benchmark1 &      0.002s &    0.002s &    0.002s     \\
+            \hline
+            benchmark2 &      0.002s &    0.002s &    0.003s     \\
+            \hline
+            benchmark3 &     3.35s &    3.46s &    3.386s     \\
+            \hline
+            benchmark4 &    34.21s &    38.11s &    35.754s     \\
+            \hline
+            benchmark5 &     119.36s &    133.78 &    129.966s     \\
+            \hline
+            benchmark6 &     557.71s &    618.27s &    599.534s     \\
+            \hline
+            \hline
+        \end{tabular}
+        \caption{Mesures des temps minimum, maximum et moyen de 5 exécutions pour les 6 benchmarks.}
+        \label{table-temps}
+    \end{center}
+\end{figure}
+
+\subsection{Analyse des résultats expérimentaux}
+On a representé les résultats des benchmarks dans le tableau de la figure~\ref{table-temps} puis on trace le temps en fonction de $n$ sur le graphique de la figure~\ref{graphe-temps}.
+On remarque alors que les points décrivent la courbe représentative d'une fonction proportionnelle à la fonction $f:x\mapsto x^3$. On en déduit que le coût expérimental en nombre d'opérations est bien en $\Theta(n^3)$
+
+\begin{figure}[h]
+    \centering\epsfig{figure=rapport/figures/temps.eps,width=14cm}%\linewidth}
+    \caption{Temps d'exécution des benchmarks en fonction du nombre de noeuds $n$ de l'ABR optimal
+        \label{graphe-temps}}
+\end{figure}
+
+\end{document}
+%e% Fin mise au format

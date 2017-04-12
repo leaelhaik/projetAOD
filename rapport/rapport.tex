@@ -17,8 +17,8 @@
 
 \title{Rapport de TP 4MMAOD : Génération d'ABR optimal}
 \author{
-NOM Prénom étudiant$_1$ (groupe étudiant$_1$) 
-\\ NOM Prénom étudiant$_2$ (groupe étudiant$_2$) 
+BROSSY Pierre (SLE)
+\\ EL HAIK Léa (ISSC) 
 }
 
 \begin{document}
@@ -27,7 +27,7 @@ NOM Prénom étudiant$_1$ (groupe étudiant$_1$)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{\em Préambule}
-{\em \begin{itemize} 
+{\em \begin{itemize}
    \item Compléter ce patron de rapport en supprimant toutes les phrases en italique\,: elles ne doivent pas apparaître dans le rapport pdf.
    \item Il sera attribué {\bf 1 point} pour la qualité globale du rapport\,: présentation, concision et clarté de l'argumentation.
 \end{itemize}
@@ -37,25 +37,25 @@ NOM Prénom étudiant$_1$ (groupe étudiant$_1$)
 \section{Principe de notre  programme (1 point)}
 {\em Mettre ici une explication brève du principe de votre programme en  précisant la méthode implantée (récursive, itérative) et les
 choix effectués (notamment pour l'ordonnancement des instructions).
-} 
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analyse du coût théorique (2 points)}
 {\em Donner ici l'analyse du coût théorique de votre programme en fonction du nombre $n$ d'éléments dans le dictionnaire.
- Pour chaque coût, donner la formule qui le caractérise (en justifiant brièvement pourquoi cette formule correspond à votre programme), 
+ Pour chaque coût, donner la formule qui le caractérise (en justifiant brièvement pourquoi cette formule correspond à votre programme),
  puis l'ordre du coût en fonction de $n$ en notation $\Theta$ de préférence, sinon $O$.}
 
   \subsection{Nombre  d'opérations en pire cas\,: }
     \paragraph{Justification\,: }
-    {\em La justification peut être par exemple de la forme: \\ 
-       "Le programme itératif contient les boucles $k_1=...$, $k_2= ...$ etc correspondant à la somme 
-      $$T(n_1, n_2, c_1, c_2) = \sum_{k_1=...}^{...} ... \sum ... + \sum_{i=...}^{...} ...$$ 
+    {\em La justification peut être par exemple de la forme: \\
+       "Le programme itératif contient les boucles $k_1=...$, $k_2= ...$ etc correspondant à la somme
+      $$T(n_1, n_2, c_1, c_2) = \sum_{k_1=...}^{...} ... \sum ... + \sum_{i=...}^{...} ...$$
       somme que nous avons calculée (ou majorée) par la technique de  ... " \\
       ou  encore\,:  \\
-      "les appels récursifs du programme permettent de modéliser son coût par le système d'équations aux récurrences 
+      "les appels récursifs du programme permettent de modéliser son coût par le système d'équations aux récurrences
       $$T(k_1, k_2) = ...  \mbox{~avec~les~conditions~initiales~....~} $$
       Le coût indiqué est obtenu en résolvant ce système par la méthode de  .... "
-    } 
+    }
   \subsection{Place mémoire requise\,: }
     \paragraph{Justification\,: }
 
@@ -70,16 +70,16 @@ choix effectués (notamment pour l'ordonnancement des instructions).
       de la machine et la méthode utilisée pour mesurer le temps.
      }
 
-    \subsubsection{Description synthétique de la machine\,:} 
-      {\em indiquer ici le  processeur et sa fréquence, la mémoire, le système d'exploitation. 
-       Préciser aussi si la machine était monopolisée pour un test, ou notamment si 
-       d'autres processus ou utilisateurs étaient en cours d'exécution. 
-      } 
+    \subsubsection{Description synthétique de la machine\,:}
+      {\em indiquer ici le  processeur et sa fréquence, la mémoire, le système d'exploitation.
+       Préciser aussi si la machine était monopolisée pour un test, ou notamment si
+       d'autres processus ou utilisateurs étaient en cours d'exécution.
+      }
 
-    \subsubsection{Méthode utilisée pour les mesures de temps\,: } 
-      {\em préciser ici  comment les mesures de temps ont été effectuées (fonction appelée) et l'unité de temps; en particulier, 
+    \subsubsection{Méthode utilisée pour les mesures de temps\,: }
+      {\em préciser ici  comment les mesures de temps ont été effectuées (fonction appelée) et l'unité de temps; en particulier,
        préciser comment les 5 exécutions pour chaque test ont été faites (par exemple si le même test est fait 5 fois de suite, ou si les tests sont alternés entre
-       les mesures, ou exécutés en concurrence etc). 
+       les mesures, ou exécutés en concurrence etc).
       }
 
   \subsection{Mesures expérimentales}
@@ -116,21 +116,20 @@ choix effectués (notamment pour l'ordonnancement des instructions).
     \end{figure}
 
 \subsection{Analyse des résultats expérimentaux}
-{\em Donner  une réponse justifiée  à la question\,: 
+{\em Donner  une réponse justifiée  à la question\,:
               les  temps mesurés correspondent ils  à votre analyse théorique (nombre d’opérations et défauts de cache) ?
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Question bonus\,: programme {\tt mystere.c}(2 points)}
 \subsection{Que fait le programme mystère et dans quel but? (1.5 point)}
-{\em Dire brièvement ce que fait le programme mystere et quel est l'impact lors de l'exécution 
+{\em Dire brièvement ce que fait le programme mystere et quel est l'impact lors de l'exécution
 (i.e. lors de recherches avec le dictionnaire) de ce post-traitement.}
 
-\subsection{Qu'en pensez-vous? (0.5 point) } 
-{\em Répondre à l'argumentation en justifiant : soit que le programme mystere est (presque) optimal (justifier les hypothèses) ; soit qu'il n'est pas optimal en 
+\subsection{Qu'en pensez-vous? (0.5 point) }
+{\em Répondre à l'argumentation en justifiant : soit que le programme mystere est (presque) optimal (justifier les hypothèses) ; soit qu'il n'est pas optimal en
 justifiant comment faire encore mieux.
 }
 
 \end{document}
 %% Fin mise au format
-

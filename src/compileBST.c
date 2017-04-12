@@ -37,12 +37,13 @@ int read(FILE *freqFile, int *tab, int n) {
     return EXIT_FAILURE;
   }
 
-  while (i != EOF && count < n) {
+  while (i != EOF && count <= n) {
     fscanf(freqFile, "%d", &i);
     printf("%d -",i);
     tab[i]=i;
     count++;
   }
+  printf("\n");
   return EXIT_SUCCESS;
 }
 

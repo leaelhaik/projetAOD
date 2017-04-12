@@ -1,0 +1,12 @@
+\BOOKMARK [1][-]{section.1}{\311quation de Bellman}{}% 1
+\BOOKMARK [1][-]{section.2}{Principe de notre programme}{}% 2
+\BOOKMARK [1][-]{section.3}{Analyse du co\373t th\351orique}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Nombre d'op\351rations en pire cas: \(n3\)}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Place m\351moire requise: \(n2\)}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Nombre de d\351fauts de cache sur le mod\350le CO: \(n2\)}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{Compte rendu d'exp\351rimentation}{}% 7
+\BOOKMARK [2][-]{subsection.4.1}{Conditions exp\351rimentaless}{section.4}% 8
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Description synth\351tique de la machine}{subsection.4.1}% 9
+\BOOKMARK [3][-]{subsubsection.4.1.2}{M\351thode utilis\351e pour les mesures de temps}{subsection.4.1}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Mesures exp\351rimentales}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{Analyse des r\351sultats exp\351rimentaux}{section.4}% 12

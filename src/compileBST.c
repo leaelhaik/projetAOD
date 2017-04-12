@@ -38,10 +38,22 @@ int read(FILE *freqFile, double *tab, int n) {
   long* num_lu = (long*) malloc(sizeof(long)*n);
   while (num_lu[count] != EOF && count < n) {
     fscanf(freqFile, "%ld", &num_lu[count]);
-    tab[count] = (double) num_lu[count];
-    //printf("%lf - ",tab[count]);
+    //printf("%ld - ",num_lu[count]);
     count++;
   }
+  //printf("\n");
+
+  long sum=0;
+  for (int i=0; i<n; i++) {
+    sum+=num_lu[i];
+  }
+  //printf("sum = %ld \n", sum);
+  for (int i=0; i<n; i++) {
+    tab[i]=(double)num_lu[i]/sum;
+    //printf("%lf - ",tab[i]);
+  }
+  //printf("\n");
+
   free(num_lu);
   return EXIT_SUCCESS;
 }
@@ -128,8 +140,7 @@ int main (int argc, char *argv[]) {
   double* tab = (double*) malloc(sizeof(double)*n);
   read(freqFile, tab, n);
 
-  
-  
+
   fclose(freqFile);
   free(tab);
 

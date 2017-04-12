@@ -44,6 +44,14 @@ int read(FILE *freqFile, int **tab, int n) {
   return EXIT_SUCCESS;
 }
 
+void afficheBST(int n) 
+{
+	for(int i = 0; i < n; ++i)
+		printf("{%d,%d}\n", BSTTree[i][0], BSTTree[i][0]);
+	
+}
+
+
 /**
  * Main function
  * \brief Main function

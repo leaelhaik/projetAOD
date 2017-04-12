@@ -15,6 +15,12 @@
 #include <assert.h>
 #include <string.h>
 
+#include "BST.h"
+
+static int BSTroot;
+static int BSTTree[][2];
+
+
 int read(FILE *freqFile, int **tab, int n) {
   int i;
   int count = 0;
@@ -25,6 +31,7 @@ int read(FILE *freqFile, int **tab, int n) {
   }
   return EXIT_SUCCESS;
 }
+
 
 /**
  * Main function

@@ -11,12 +11,12 @@
  */
 
 
-/** Fonction qui initie la mtrice de somme des fréquences des clés de l'arbre
-* \brief Initialisation de la matrice.
-* \param tab2f La matrice à initialiser
-* \param tab_lu Le tableau des fréquences lues depuis le fichier passé en entré.
-* \param n La taille du tableau tab_lu
-*/
-void init_tabf(double **tab2f, double *tab_lu, long n);
+void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n);
+
+void memorisation( double* proba, double** tab_cout, double** racine, double** tab2f, long n);
+
+double BST_rec(double** tab2f, double** tab_cout, double** racine, long i, long j);
+
+void BST_Disp(double **racine, double **etiquette, int i, int j);
 
 #endif

@@ -136,9 +136,13 @@ int main (int argc, char *argv[]) {
   freqFile = fopen(argv[2] , "r" );
   if (freqFile==NULL) {fprintf (stderr, "!!!!! Error opening originalFile !!!!!\n"); exit(EXIT_FAILURE);}
 
-  // Tableau pour stocker les valeurs lues
+  // Tableau pour stocker les probabilités des valeurs lues
   double* tab = (double*) malloc(sizeof(double)*n);
   read(freqFile, tab, n);
+
+  double** tab_cout, tab2f, racine;
+  creation_tabs(&tab_cout,&racine,&tab2f,n);
+
 
 
   fclose(freqFile);

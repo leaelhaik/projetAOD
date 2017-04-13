@@ -37,12 +37,13 @@ void init_tabf(double **tab2f, double *tab_lu, long n)
 
 
 void Opt(double **tabFreq, int n, double **tabCout, double **tabRac) {
+	int j;
 	for (int i=0; i<n; i++) {
 		tabFreq[i][i]=0;
 		tabCout[i][i]=0;
 	}
 	for (int l=1; l<n; l++) {
-		for (i=0; i<n; i++) {
+		for (int i=0; i<n; i++) {
 			j=i+l;
 			tabFreq[i][j]=tabFreq[i][j-1];
 			//Ici determiner m
@@ -56,22 +57,31 @@ void Opt(double **tabFreq, int n, double **tabCout, double **tabRac) {
 }
 
 
-void memorisation( double* proba, double** tab_cout, double** racine, double** tab2f, long i, long j, long n) {
+
+void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n) {
+	long j = 0;
 	tab_cout = malloc(sizeof(double)*(n+1));
-	racine = malloc(sizeof(double)*(n));
+	racine =  malloc(sizeof(double)*(n));
+	tab2f =  malloc(sizeof(double)*n);
 	for (int k = 0; k < n; ++k) {
+		(*tab2f)[k] = malloc(sizeof(double)*n);
 		(*tab_cout)[k] = malloc(sizeof(double)*n+1);
 		(*racine)[k] = malloc(sizeof(double)*n);
-		for (int l = 0; l < n; ++l)
-		{
-			tab_cout[k][l] = DBL_MAX;
+	}
+}
+
+void memorisation( double* proba, double** tab_cout, double** racine, double** tab2f, long n) {
+	tab_cout[n][n-1] = 0;
+	for (int m = 1; m <=n; ++m) {
+		tab_cout[m][m-1] = 0;
+		tab_cout[m][m] = proba[i];
+		tab2f[m][m]= proba[i];
+	}
+	for (int x = 1; x < n ; ++x){
+		for (int y = 1; y < n; ++y) {
+			j = x+y;
+			tab2f[i][j] = tab[x][j-1] + proba[j];	
 		}
 	}
-	for (int m = 1; m <=n; ++m) {
-		e[m,m-1] = 0;
-		e[m,m] = proba[i];
-		
-	}
-	
-
+ 	for  (int i = 0; 
 }

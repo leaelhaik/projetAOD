@@ -22,7 +22,6 @@ static int **BSTtree;
 
 
 int read(FILE *freqFile, double *tab, int n) {
-  int count = 0;
   if (n <= 0) {
     printf("Erreur: taille invalide.");
     return EXIT_FAILURE;
@@ -36,10 +35,9 @@ int read(FILE *freqFile, double *tab, int n) {
     return EXIT_FAILURE;
   }
   long* num_lu = (long*) malloc(sizeof(long)*n);
-  while (num_lu[count] != EOF && count < n) {
+  for (int count=0; count < n; ++count) {
     fscanf(freqFile, "%ld", &num_lu[count]);
     //printf("%ld - ",num_lu[count]);
-    count++;
   }
   //printf("\n");
 

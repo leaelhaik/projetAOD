@@ -18,26 +18,24 @@
 \title{Rapport de TP 4MMAOD : Génération d'ABR optimal}
 \author{
 BROSSY Pierre (SLE)
-\\ EL HAIK Léa (ISSC) 
+\\ EL HAIK Léa (ISSC)
 }
 
 \begin{document}
 
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{\em Préambule}
-{\em \begin{itemize}
-   \item Compléter ce patron de rapport en supprimant toutes les phrases en italique\,: elles ne doivent pas apparaître dans le rapport pdf.
-   \item Il sera attribué {\bf 1 point} pour la qualité globale du rapport\,: présentation, concision et clarté de l'argumentation.
-\end{itemize}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Principe de notre  programme (1 point)}
 {\em Mettre ici une explication brève du principe de votre programme en  précisant la méthode implantée (récursive, itérative) et les
 choix effectués (notamment pour l'ordonnancement des instructions).
-}
+} \\
+Dans un premier temps, notre programme lit le fichier afin de récupérér les entiers constituant l'arbre.
+A partir de ces valeurs, on crée un tableau de taille $n$ pour stocker les fréquences de recherche des entiers lus.
+Par un principe de memoïsation, on va en déduire le tableau des coûts et le tableau des racines des ABR possibles.
+Ensuite, en prenant en compte qu'un sous ABR d'un ABR optimal est optimal, on peut utiliser la récursivité afin de trouver l'ABR optimal. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analyse du coût théorique (2 points)}

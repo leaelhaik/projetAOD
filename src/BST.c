@@ -37,21 +37,4 @@ void init_tabf(double **tab2f, double *tab_lu, long n)
 }
 
 
-  void Opt(double **tabFreq, int n, double **tabCout, double **tabRac) {
-		for (int i=0; i<n; i++) {
-			tabFreq[i][i]=0;
-			tabCout[i][i]=0;
-		}
-		for (int l=1; l<n; l++) {
-			for (i=0; i<n; i++) {
-				j=i+l;
-				tabFreq[i][j]=tabFreq[i][j-1];
-				//Ici determiner m
-				int m=0;
-				tabCout[i][j]=tabFreq[i][j]+tabCout[i][m-1]+tabCout[m][j];
-				tabRac[i][j]=m;
-
-			}
-		}
-
 	}

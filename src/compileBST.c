@@ -142,7 +142,7 @@ int main (int argc, char *argv[]) {
   creation_tabs(&tab_cout,&racine,&tab2f,n);
 
 
-
+  destruction_tabs(tab_cout,racine,tab2f,n);
   fclose(freqFile);
   free(tab);
 

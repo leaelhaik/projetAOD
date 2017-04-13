@@ -11,7 +11,7 @@
  */
 
 
-void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n);
+void creation_tabs(double** tab_cout, double** racine, double** tab2f, long n);
 
 void memorisation( double* proba, double** tab_cout, double** racine, double** tab2f, long n);
 

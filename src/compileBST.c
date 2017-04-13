@@ -17,8 +17,8 @@
 
 #include "BST.h"
 
-static int BSTroot;
-static int **BSTtree;
+static double BSTroot;
+static double **BSTtree;
 
 
 int read(FILE *freqFile, double *tab, int n) {
@@ -60,7 +60,7 @@ int read(FILE *freqFile, double *tab, int n) {
 void afficheBST(int n)
 {
 	for(int i = 0; i < n; ++i) {
-		printf("{%d,%d}\n", BSTtree[i][0], BSTtree[i][0]);
+		printf("{%lf,%lf}\n", BSTtree[i][0], BSTtree[i][0]);
   }
 }
 
@@ -141,9 +141,13 @@ int main (int argc, char *argv[]) {
   double** tab_cout;
   double** tab2f;
   double** racine;
+  long i=0;
+  long j=n-1;
   creation_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
-  //memorisation(tab,tab_cout,racine,tab2f,n);
-
+  memorisation(tab,tab_cout,racine,tab2f,n);
+  BST_rec(tab2f,tab_cout,racine,i,j);
+  //BST_Disp(BSTtree,racine,i,j);
+  //afficheBST(n);
   destruction_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
   fclose(freqFile);
   free(tab);

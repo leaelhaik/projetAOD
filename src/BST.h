@@ -10,6 +10,7 @@
  *
  */
 
+void affiche_tab(double** tab, double ligne, double colonne);
 
 void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n);
 

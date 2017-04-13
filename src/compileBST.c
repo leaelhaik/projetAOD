@@ -148,6 +148,13 @@ int main (int argc, char *argv[]) {
   BST_rec(tab2f,tab_cout,racine,i,j);
   //BST_Disp(BSTtree,racine,i,j);
   //afficheBST(n);
+
+  printf("\ntab_cout :\n\n");
+  affiche_tab(tab_cout,n+1,n+1);
+  printf("\ntab2f :\n\n");
+  affiche_tab(tab2f,n,n);
+  printf("\ntableau_racine:\n\n");
+  affiche_tab(racine,n,n);
   destruction_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
   fclose(freqFile);
   free(tab);

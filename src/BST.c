@@ -69,3 +69,21 @@ double BST_rec(double** tab2f, double** tab_cout, double** racine, long i, long 
 		return tab_cout[i][j];
 	}
 }
+
+void BST_Disp(double **BSTtree, double **racine, long i, long j) {
+	if (i<j) {
+		long r=racine[i][j];
+		if (r==0) {
+			BSTtree[r][0]=-1;
+		} else {
+			BSTtree[r][0] = racine[i][r-1];
+      if (r == j) {
+            BSTtree[r][1] = -1;
+			} else {
+            BSTtree[r][1] = racine[r+1][j];
+			}
+			BST_Disp(BSTtree, racine, i, r-1);
+      BST_Disp(BSTtree, racine, r+1, j);
+    }
+	}
+}

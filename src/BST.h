@@ -19,6 +19,6 @@ void memorisation( double* proba, double** tab_cout, double** racine, double** t
 
 double BST_rec(double** tab2f, double** tab_cout, double** racine, long i, long j);
 
-void BST_Disp(double **racine, double **etiquette, int i, int j);
+void BST_Disp(double **BSTtree, double **racine, long i, long j);
 
 #endif

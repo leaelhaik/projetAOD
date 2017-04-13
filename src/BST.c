@@ -9,25 +9,31 @@ void affiche_tab(double** tab, double ligne, double colonne ){
 			} else {
 			printf("%lf ", k);
 			}
-		}		
+		}
 		printf("\n");
 	}
 }
 
-void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n) {
+void creation_tabs(double*** tab_cout, long*** racine, double*** tab2f, double*** BSTtree, long n) {
 	*tab_cout = malloc(sizeof(double)*(n+1));
-	*racine =  malloc(sizeof(double)*(n));
+	*racine =  malloc(sizeof(long)*(n));
 	*tab2f =  malloc(sizeof(double)*(n));
+	*BSTtree = malloc(sizeof(double)*(n));
 	for (int k = 0; k < n; ++k) {
 		(*tab2f)[k] = malloc(sizeof(double)*(n));
 		(*tab_cout)[k] = malloc(sizeof(double)*(n+1));
-		(*racine)[k] = malloc(sizeof(double)*(n));
+		(*racine)[k] = malloc(sizeof(long)*(n));
 	}
 	//tab_cout est de taille n+1 * n+1
 	(*tab_cout)[n]= malloc(sizeof(double)*(n+1));
+  for(size_t i=0; i<n; ++i)  {
+    (*BSTtree)[i] = malloc(sizeof(long)*2);
+    (*BSTtree)[i][0] = -1;
+  	(*BSTtree)[i][1] = -1;
+	}
 }
 
-void destruction_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n) {
+void destruction_tabs(double*** tab_cout, long*** racine, double*** tab2f, double*** BSTtree, long n) {
 	//on libere les cases
 	for (int k = 0; k < n; ++k) {
 		free((*tab2f)[k]);
@@ -40,10 +46,14 @@ void destruction_tabs(double*** tab_cout, double*** racine, double*** tab2f, lon
 	free(*tab2f);
 	free(*tab_cout);
 	free(*racine);
+  for(size_t i=0; i<n; ++i)  {
+		free((*BSTtree)[i]);
+	}
+	free(*BSTtree);
 }
 
 
-void memorisation( double* proba, double** tab_cout, double** racine, double** tab2f, long n) {
+void memorisation( double* proba, double** tab_cout, double** tab2f, long n) {
 	//Initialisation matrice des couts à l'infini
 	for  (int i = 0; i<n+1; ++i) {
 		for (int j=0; j<n+1; ++j) {
@@ -69,13 +79,13 @@ void memorisation( double* proba, double** tab_cout, double** racine, double** t
 		}
 	}
 }
-	double BST_rec(double** tab2f, double** tab_cout, double** racine, long i, long j) {
+	double BST_rec(double** tab2f, double** tab_cout, long** racine, int i, int j) {
 		if (tab_cout[i][j]<DBL_MAX) {
 			return tab_cout[i][j];
 		} else {
 			double t;
 			for (long r=i; r<=j; ++r) {
-				t=BST_rec(tab2f, tab_cout, racine, i, r-1) + BST_rec(tab2f, tab_cout, racine, r+1, j) + tab2f[i][j] ;
+					t=BST_rec(tab2f, tab_cout, racine, i, r-1) + BST_rec(tab2f, tab_cout, racine, r+1, j) + tab2f[i][j] ;
 				if (t<tab_cout[i][j]) {
 					tab_cout[i][j]=t;
 					racine[i][j]=r;
@@ -85,7 +95,7 @@ void memorisation( double* proba, double** tab_cout, double** racine, double** t
 		}
 	}
 
-void BST_Disp(double **BSTtree, double **racine, long i, long j) {
+void BST_Disp(double **BSTtree, long **racine, int i, int j) {
 	if (i<j) {
 		long r=racine[i][j];
 		if (r==0) {
@@ -97,8 +107,9 @@ void BST_Disp(double **BSTtree, double **racine, long i, long j) {
 			} else {
             BSTtree[r][1] = racine[r+1][j];
 			}
+    }
+		if (r!=0)
 			BST_Disp(BSTtree, racine, i, r-1);
       BST_Disp(BSTtree, racine, r+1, j);
-    }
-	}
+		}
 }

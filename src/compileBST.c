@@ -140,22 +140,22 @@ int main (int argc, char *argv[]) {
 
   double** tab_cout;
   double** tab2f;
-  double** racine;
-  long i=0;
-  long j=n-1;
-  creation_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
-  memorisation(tab,tab_cout,racine,tab2f,n);
+  long** racine;
+  int i=0;
+  int j=n-1;
+  creation_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(double***)&BSTtree,n);
+  memorisation(tab,tab_cout,tab2f,n);
   BST_rec(tab2f,tab_cout,racine,i,j);
-  //BST_Disp(BSTtree,racine,i,j);
-  //afficheBST(n);
+  BST_Disp(BSTtree,racine,i,j);
+  afficheBST(n);
 
-  printf("\ntab_cout :\n\n");
+  /*printf("\ntab_cout :\n\n");
   affiche_tab(tab_cout,n+1,n+1);
   printf("\ntab2f :\n\n");
   affiche_tab(tab2f,n,n);
   printf("\ntableau_racine:\n\n");
-  affiche_tab(racine,n,n);
-  destruction_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
+  affiche_tab(racine,n,n); */
+  destruction_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(double***)&BSTtree,n);
   fclose(freqFile);
   free(tab);
 

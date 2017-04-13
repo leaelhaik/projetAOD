@@ -22,6 +22,21 @@ void destruct_tab(int*** tab, int colonne)
 
 */
 
+
+void init_tabf(double **tab2f, double *tab_lu, long n)
+{
+	for (int i = 0; i < n ; ++i) {
+		for (int j = i; j < n ; ++j) {
+			if (j == 0) {
+				tab2f[i][j] = tab_lu[j];
+			} else {
+				tab2f[i][j] = tab2f[i][j-1] +tab_lu[j];
+			}
+		}
+	}
+}
+
+
   void Opt(double **tabFreq, int n, double **tabCout, double **tabRac) {
 		for (int i=0; i<n; i++) {
 			tabFreq[i][i]=0;
@@ -32,7 +47,7 @@ void destruct_tab(int*** tab, int colonne)
 				j=i+l;
 				tabFreq[i][j]=tabFreq[i][j-1];
 				//Ici determiner m
-
+				int m=0;
 				tabCout[i][j]=tabFreq[i][j]+tabCout[i][m-1]+tabCout[m][j];
 				tabRac[i][j]=m;
 

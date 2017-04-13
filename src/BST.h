@@ -11,9 +11,12 @@
  */
 
 
-
-int **tab_create(const int colonne, const int ligne, int size);
-
-void destruct_tab(int*** tab, int col);
+/** Fonction qui initie la mtrice de somme des fréquences des clés de l'arbre
+* \brief Initialisation de la matrice.
+* \param tab2f La matrice à initialiser
+* \param tab_lu Le tableau des fréquences lues depuis le fichier passé en entré.
+* \param n La taille du tableau tab_lu
+*/
+void init_tabf(double **tab2f, double *tab_lu, long n);
 
 #endif

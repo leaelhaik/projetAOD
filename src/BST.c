@@ -1,5 +1,18 @@
 #include "BST.h"
 
+void affiche_tab(double** tab, double ligne, double colonne ){
+	for(int i = 0; i < ligne ; ++i) {
+		for(int j = 0; j < colonne; ++j) {
+			double k = tab[i][j];
+			if ( k == DBL_MAX) {
+				printf("INFINITY ");
+			} else {
+			printf("%lf ", k);
+			}
+		}		
+		printf("\n");
+	}
+}
 
 void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n) {
 	*tab_cout = malloc(sizeof(double)*(n+1));
@@ -31,13 +44,14 @@ void destruction_tabs(double*** tab_cout, double*** racine, double*** tab2f, lon
 
 
 void memorisation( double* proba, double** tab_cout, double** racine, double** tab2f, long n) {
-	tab_cout[n][n-1] = 0;
 	//Initialisation matrice des couts à l'infini
 	for  (int i = 0; i<n+1; ++i) {
 		for (int j=0; j<n+1; ++j) {
 			tab_cout[i][j]=DBL_MAX;
 		}
 	}
+	tab_cout[n][n-1] = 0;
+	tab_cout[0][0] = proba[0];//Mi sur de ca.
 	//Initialisation de la matrice triangulaire et mise en place des couts sur la diagonale
 	for (int m = 1; m < n; ++m) {
 		tab_cout[m][m-1] = 0;

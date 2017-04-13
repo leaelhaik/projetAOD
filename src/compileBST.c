@@ -144,6 +144,12 @@ int main (int argc, char *argv[]) {
   creation_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
   memorisation(tab,tab_cout,racine,tab2f,n);
 
+  printf("\ntab_cout :\n\n");
+  affiche_tab(tab_cout,n+1,n+1);
+  printf("\ntab2f :\n\n");
+  affiche_tab(tab2f,n,n);
+  printf("\ntableau_racine:\n\n");
+  affiche_tab(racine,n,n);
   destruction_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
   fclose(freqFile);
   free(tab);

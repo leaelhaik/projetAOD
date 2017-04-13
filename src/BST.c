@@ -1,37 +1,32 @@
 #include "BST.h"
 
 
-/*void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n) {
-	tab_cout = malloc(sizeof(double)*(n+1));
-	racine =  malloc(sizeof(double)*(n));
-	tab2f =  malloc(sizeof(double)*(n));
+void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n) {
+	*tab_cout = malloc(sizeof(double)*(n+1));
+	*racine =  malloc(sizeof(double)*(n));
+	*tab2f =  malloc(sizeof(double)*(n));
 	for (int k = 0; k < n; ++k) {
 		(*tab2f)[k] = malloc(sizeof(double)*(n));
 		(*tab_cout)[k] = malloc(sizeof(double)*(n+1));
 		(*racine)[k] = malloc(sizeof(double)*(n));
 	}
-} */
-
-void creation_tabs(double** tab_cout, double** racine, double** tab2f, long n) {
-	tab_cout = malloc(sizeof(double)*(n+1));
-	racine =  malloc(sizeof(double)*(n));
-	tab2f =  malloc(sizeof(double)*(n));
-	for (int k = 0; k < n; ++k) {
-		tab2f[k] = malloc(sizeof(double)*(n));
-		tab_cout[k] = malloc(sizeof(double)*(n+1));
-		racine[k] = malloc(sizeof(double)*(n));
-	}
+	//tab_cout est de taille n+1 * n+1
+	(*tab_cout)[n]= malloc(sizeof(double)*(n+1));
 }
 
-void destruction_tabs(double** tab_cout, double** racine, double** tab2f, long n) {
+void destruction_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n) {
+	//on libere les cases
 	for (int k = 0; k < n; ++k) {
-		free(tab2f[k]);
-		free(tab_cout[k]);
-		free(racine[k]);
+		free((*tab2f)[k]);
+		free((*racine)[k]);
+		free((*tab_cout)[k]);
 	}
-	free(tab2f);
-	free(tab_cout);
-	free(racine);
+	//tab_cout est de taille n+1 * n+1
+	free((*tab_cout)[n]);
+	//on libere les tab
+	free(*tab2f);
+	free(*tab_cout);
+	free(*racine);
 }
 
 

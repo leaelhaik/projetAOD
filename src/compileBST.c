@@ -138,11 +138,13 @@ int main (int argc, char *argv[]) {
   double* tab = (double*) malloc(sizeof(double)*n);
   read(freqFile, tab, n);
 
-  double** tab_cout, tab2f, racine;
-  creation_tabs(&tab_cout,&racine,&tab2f,n);
+  double** tab_cout;
+  double** tab2f;
+  double** racine;
+  creation_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
+  //memorisation(tab,tab_cout,racine,tab2f,n);
 
-
-  destruction_tabs(tab_cout,racine,tab2f,n);
+  destruction_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
   fclose(freqFile);
   free(tab);
 

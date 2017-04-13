@@ -2,7 +2,6 @@
 
 
 void creation_tabs(double*** tab_cout, double*** racine, double*** tab2f, long n) {
-	long j = 0;
 	tab_cout = malloc(sizeof(double)*(n+1));
 	racine =  malloc(sizeof(double)*(n));
 	tab2f =  malloc(sizeof(double)*n);
@@ -24,14 +23,15 @@ void memorisation( double* proba, double** tab_cout, double** racine, double** t
 	//Initialisation de la matrice triangulaire et mise en place des couts sur la diagonale
 	for (int m = 1; m <=n; ++m) {
 		tab_cout[m][m-1] = 0;
-		tab_cout[m][m] = proba[i];
-		tab2f[m][m]= proba[i];
+		tab_cout[m][m] = proba[m];
+		tab2f[m][m]= proba[m];
 	}
 	//Initialisation de la table des frequences de recherche
+	long z;
 	for (int x = 1; x < n ; ++x){
 		for (int y = 1; y < n; ++y) {
-			j = x+y;
-			tab2f[i][j] = tab[x][j-1] + proba[j];
+			z = x+y;
+			tab2f[x][z] = tab2f[x][z-1] + proba[z];
 		}
 	}
 }
@@ -49,19 +49,5 @@ double BST_rec(double** tab2f, double** tab_cout, double** racine, long i, long 
 			}
 		}
 		return tab_cout[i][j];
-	}
-}
-
-
-
- void BST_Disp(double **racine, double **etiquette, int i, int j) {
-	if(i<j) {
-		return NULL;
-	} else if (i=j){
-			printf("feuille %lf \n",etiquette[i]);
-	} else {
-				printf("racine= %ld",k[racine[i][j]]);
-				printf("arbre gauche= %ld",BST_Disp(racine,k,i,racine[i][j]-1));
-				printf("arbre droit= %ld",BST_Disp(racine,k,racine[i][j]+1,j));
 	}
 }

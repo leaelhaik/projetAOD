@@ -17,8 +17,8 @@
 
 #include "BST.h"
 
-static double BSTroot;
-static double **BSTtree;
+static long BSTroot;
+static long **BSTtree;
 
 
 int read(FILE *freqFile, double *tab, int n) {
@@ -60,7 +60,7 @@ int read(FILE *freqFile, double *tab, int n) {
 void afficheBST(int n)
 {
 	for(int i = 0; i < n; ++i) {
-		printf("{%lf,%lf}\n", BSTtree[i][0], BSTtree[i][0]);
+		printf("{%ld,%ld}\n", BSTtree[i][0], BSTtree[i][0]);
   }
 }
 
@@ -143,19 +143,21 @@ int main (int argc, char *argv[]) {
   long** racine;
   int i=0;
   int j=n-1;
-  creation_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(double***)&BSTtree,n);
-  memorisation(tab,tab_cout,tab2f,n);
+  creation_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(long***)&BSTtree,n);
+  memorisation(tab,tab_cout,racine,tab2f,n);
   BST_rec(tab2f,tab_cout,racine,i,j);
-  BST_Disp(BSTtree,racine,i,j);
+  BST_fin(BSTtree,racine,i,j);
   afficheBST(n);
-
+  BSTroot=racine[0][n-1];
   /*printf("\ntab_cout :\n\n");
   affiche_tab(tab_cout,n+1,n+1);
   printf("\ntab2f :\n\n");
-  affiche_tab(tab2f,n,n);
+  affiche_tab(tab2f,n,n); */
   printf("\ntableau_racine:\n\n");
-  affiche_tab(racine,n,n); */
-  destruction_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(double***)&BSTtree,n);
+  affiche_tab(racine,n,n);
+  printf("BSTroot=%ld\n",BSTroot);
+
+  destruction_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(long***)&BSTtree,n);
   fclose(freqFile);
   free(tab);
 

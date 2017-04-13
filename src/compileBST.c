@@ -142,7 +142,7 @@ int main (int argc, char *argv[]) {
   double** tab2f;
   double** racine;
   creation_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
-  //memorisation(tab,tab_cout,racine,tab2f,n);
+  memorisation(tab,tab_cout,racine,tab2f,n);
 
   destruction_tabs((double***)&tab_cout,(double***)&racine,(double***)&tab2f,n);
   fclose(freqFile);

@@ -33,39 +33,40 @@ void destruction_tabs(double*** tab_cout, double*** racine, double*** tab2f, lon
 void memorisation( double* proba, double** tab_cout, double** racine, double** tab2f, long n) {
 	tab_cout[n][n-1] = 0;
 	//Initialisation matrice des couts à l'infini
- 	for  (int i = 0; i<n+1; ++i) {
+	for  (int i = 0; i<n+1; ++i) {
 		for (int j=0; j<n+1; ++j) {
 			tab_cout[i][j]=DBL_MAX;
 		}
 	}
 	//Initialisation de la matrice triangulaire et mise en place des couts sur la diagonale
-	for (int m = 1; m <=n; ++m) {
+	for (int m = 1; m < n; ++m) {
 		tab_cout[m][m-1] = 0;
 		tab_cout[m][m] = proba[m];
 		tab2f[m][m]= proba[m];
 	}
 	//Initialisation de la table des frequences de recherche
-	long z;
-	for (int x = 1; x < n ; ++x){
-		for (int y = 1; y < n; ++y) {
-			z = x+y;
-			tab2f[x][z] = tab2f[x][z-1] + proba[z];
-		}
-	}
-}
-
-double BST_rec(double** tab2f, double** tab_cout, double** racine, long i, long j) {
-	if (tab_cout[i][j]!=DBL_MAX) {
-		return tab_cout[i][j];
-	} else {
-		double t;
-		for (long r=i; r<=j; ++r) {
-			t=BST_rec(tab2f, tab_cout, racine, i, r-1) + BST_rec(tab2f, tab_cout, racine, r+1, j) + tab2f[i][j] ;
-			if (t<tab_cout [i][j]) {
-				tab_cout[i][j]=t;
-				racine[i][j]=r;
+	for (int x = 0; x < n ; ++x){
+		for (int y = x; y < n; ++y) {
+			if ( y == 0 ) {
+				tab2f[x][y] = proba[0];
+			} else {
+				tab2f[x][y] = tab2f[x][y-1] + proba[y];
 			}
 		}
-		return tab_cout[i][j];
 	}
 }
+	double BST_rec(double** tab2f, double** tab_cout, double** racine, long i, long j) {
+		if (tab_cout[i][j]!=DBL_MAX) {
+			return tab_cout[i][j];
+		} else {
+			double t;
+			for (long r=i; r<=j; ++r) {
+				t=BST_rec(tab2f, tab_cout, racine, i, r-1) + BST_rec(tab2f, tab_cout, racine, r+1, j) + tab2f[i][j] ;
+				if (t<tab_cout [i][j]) {
+					tab_cout[i][j]=t;
+					racine[i][j]=r;
+				}
+			}
+			return tab_cout[i][j];
+		}
+	}

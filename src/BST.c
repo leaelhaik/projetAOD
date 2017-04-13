@@ -7,7 +7,7 @@ void affiche_tab(long** tab, double ligne, double colonne ){
 			if ( k == DBL_MAX) {
 				printf("INFINITY ");
 			} else {
-			printf("%ld ", k);
+				printf("%ld ", k);
 			}
 		}
 		printf("\n");
@@ -29,10 +29,10 @@ void creation_tabs(double*** tab_cout, long*** racine, double*** tab2f, long*** 
 	}
 	//tab_cout est de taille n+1 * n+1
 	(*tab_cout)[n]= malloc(sizeof(double)*(n+1));
-  for(size_t i=0; i<n; ++i)  {
-    (*BSTtree)[i] = malloc(sizeof(long)*2);
-    (*BSTtree)[i][0] = -1;
-  	(*BSTtree)[i][1] = -1;
+	for(size_t i=0; i<n; ++i)  {
+		(*BSTtree)[i] = malloc(sizeof(long)*2);
+		(*BSTtree)[i][0] = -1;
+		(*BSTtree)[i][1] = -1;
 	}
 }
 
@@ -49,7 +49,7 @@ void destruction_tabs(double*** tab_cout, long*** racine, double*** tab2f, long*
 	free(*tab2f);
 	free(*tab_cout);
 	free(*racine);
-  for(size_t i=0; i<n; ++i)  {
+	for(size_t i=0; i<n; ++i)  {
 		free((*BSTtree)[i]);
 	}
 	free(*BSTtree);
@@ -84,42 +84,45 @@ void memorisation( double* proba, double** tab_cout, long** racine, double** tab
 		}
 	}
 }
-	double BST_rec(double** tab2f, double** tab_cout, long** racine, long i, long j) {
-		if (tab_cout[i][j]<DBL_MAX) {
-			return tab_cout[i][j];
-		} else {
-			double t;
-			for (long r=i; r<=j; ++r) {
-					t=BST_rec(tab2f, tab_cout, racine, i, r-1) + BST_rec(tab2f, tab_cout, racine, r+1, j) + tab2f[i][j] ;
-				if (t<tab_cout[i][j]) {
-					tab_cout[i][j]=t;
-					racine[i][j]=r;
-				}
+
+
+double BST_rec(double** tab2f, double** tab_cout, long** racine, long i, long j) {
+	if (tab_cout[i][j]<DBL_MAX) {
+		return tab_cout[i][j];
+	} else {
+		double t;
+		for (long r=i; r<=j; ++r) {
+			t=BST_rec(tab2f, tab_cout, racine, i, r-1) + BST_rec(tab2f, tab_cout, racine, r+1, j) + tab2f[i][j] ;
+			if (t<tab_cout[i][j]) {
+				tab_cout[i][j]=t;
+				racine[i][j]=r;
 			}
-			return tab_cout[i][j];
 		}
+		return tab_cout[i][j];
 	}
+}
 
 
 
 
 void BST_fin(long **BSTtree, long **racine, long i, long j) {
-	if (i < j)
-	{
-			long r = racine[i][j];
+	if (i < j){
+		long r = racine[i][j];
 
-	if (r == 0)
-		BSTtree[r][0] = -1;
-	else
-		BSTtree[r][0] = racine[i][r-1];
+		if (r == 0) {
+			BSTtree[r][0] = -1;
+		} else {
+			BSTtree[r][0] = racine[i][r-1];
+		}
+		if (r == j) {
+			BSTtree[r][1] = -1;
+		}	else {
+			BSTtree[r][1] = racine[r+1][j];
+		}
 
-			if (r == j)
-					BSTtree[r][1] = -1;
-			else
-					BSTtree[r][1] = racine[r+1][j];
-
-	if (r != 0)
-		BST_fin(BSTtree, racine, i, r-1);
-			BST_fin(BSTtree, racine, r+1, j);
+		if (r != 0) {
+			BST_fin(BSTtree, racine, i, r-1);
+		}
+		BST_fin(BSTtree, racine, r+1, j);
 	}
 }

@@ -1,12 +1,12 @@
 /*! \file compileBST.c
- *  \brief	   This implements the applyPatch program.
- *  \author    Lucie Pansart
- *  \author    Jean-Louis Roch
- *  \version   1.0
- *  \date      30/9/2016
- *  \warning   Usage: compileBST n originalFile
- *  \copyright GNU Public License.
- */
+*  \brief	   This implements the applyPatch program.
+*  \author    Lucie Pansart
+*  \author    Jean-Louis Roch
+*  \version   1.0
+*  \date      30/9/2016
+*  \warning   Usage: compileBST n originalFile
+*  \copyright GNU Public License.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,20 +59,20 @@ int read(FILE *freqFile, double *tab, int n) {
 
 void afficheBST(int n)
 {
-	for(int i = 0; i < n; ++i) {
-		printf("{%ld,%ld}\n", BSTtree[i][0], BSTtree[i][0]);
+  for(int i = 0; i < n; ++i) {
+    printf("{%ld,%ld}\n", BSTtree[i][0], BSTtree[i][1]);
   }
 }
 
 
 /**
- * Main function
- * \brief Main function
- * \param argc  A count of the number of command-line arguments
- * \param argv  An argument vector of the command-line arguments.
- * \warning Must be called with a positive long integer, n,  and a filename, freqFile, as commandline parameters and in the given order.
- * \returns { 0 if succeeds and prints C code implementing an optimal ABR on stdout; exit code otherwise}
- */
+* Main function
+* \brief Main function
+* \param argc  A count of the number of command-line arguments
+* \param argv  An argument vector of the command-line arguments.
+* \warning Must be called with a positive long integer, n,  and a filename, freqFile, as commandline parameters and in the given order.
+* \returns { 0 if succeeds and prints C code implementing an optimal ABR on stdout; exit code otherwise}
+*/
 int main (int argc, char *argv[]) {
   long n = 0 ; // Number of elements in the dictionary
   FILE *freqFile = NULL ; // File that contains n positive integers defining the relative frequence of dictinary elements
@@ -83,7 +83,7 @@ int main (int argc, char *argv[]) {
 
   if(argc != 3){
     fprintf(stderr, "!!!!! Usage: ./compileBST n  originalFile !!!!!\n");
-      exit(EXIT_FAILURE); /* indicate failure.*/
+    exit(EXIT_FAILURE); /* indicate failure.*/
   }
 
   { // Conversion of parameter n in a long
@@ -99,34 +99,34 @@ int main (int argc, char *argv[]) {
     switch (errno)
     {
       case EXIT_SUCCESS :
-         // Conversion du long en int
-         if (resuLong > 0)
-         {
-            n = (long)resuLong;
-            fprintf(stderr, "Number of elements in the dictionary: %ld\n", n);
-         }
-         else
-         {
-            (void)fprintf(stderr, "%s cannot be converted into a positive integer matching the number of elements in the dicionary.\n", argv[1]) ;
-            codeRetour = EXIT_FAILURE;
-         }
+      // Conversion du long en int
+      if (resuLong > 0)
+      {
+        n = (long)resuLong;
+        fprintf(stderr, "Number of elements in the dictionary: %ld\n", n);
+      }
+      else
+      {
+        (void)fprintf(stderr, "%s cannot be converted into a positive integer matching the number of elements in the dicionary.\n", argv[1]) ;
+        codeRetour = EXIT_FAILURE;
+      }
       break;
 
       case EINVAL :
-         perror(__func__);
-         (void)fprintf(stderr, "%s does not match a long integer value. \n", argv[1]);
-         codeRetour = EXIT_FAILURE;
+      perror(__func__);
+      (void)fprintf(stderr, "%s does not match a long integer value. \n", argv[1]);
+      codeRetour = EXIT_FAILURE;
       break;
 
       case ERANGE :
-         perror(__func__);
-         (void)fprintf(stderr, "%s does not fit in a long int :\n" "out of bound [%ld;%ld]\n",
-                       argv[1], LONG_MIN, LONG_MAX);
-         codeRetour = EXIT_FAILURE;
+      perror(__func__);
+      (void)fprintf(stderr, "%s does not fit in a long int :\n" "out of bound [%ld;%ld]\n",
+      argv[1], LONG_MIN, LONG_MAX);
+      codeRetour = EXIT_FAILURE;
       break;
       default :
-         perror(__func__);
-         codeRetour = EXIT_FAILURE;
+      perror(__func__);
+      codeRetour = EXIT_FAILURE;
     } // switch (errno)
     if  (codeRetour != EXIT_SUCCESS) return codeRetour ;
   }
@@ -141,22 +141,12 @@ int main (int argc, char *argv[]) {
   double** tab_cout;
   double** tab2f;
   long** racine;
-  int i=0;
-  int j=n-1;
   creation_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(long***)&BSTtree,n);
   memorisation(tab,tab_cout,racine,tab2f,n);
-  BST_rec(tab2f,tab_cout,racine,i,j);
-  BST_fin(BSTtree,racine,i,j);
+  BST_rec(tab2f,tab_cout,racine,0,n-1);
+  BST_fin(BSTtree,racine,0,n-1);
   afficheBST(n);
   BSTroot=racine[0][n-1];
-  /*printf("\ntab_cout :\n\n");
-  affiche_tab(tab_cout,n+1,n+1);
-  printf("\ntab2f :\n\n");
-  affiche_tab(tab2f,n,n); */
-  printf("\ntableau_racine:\n\n");
-  affiche_tab(racine,n,n);
-  printf("BSTroot=%ld\n",BSTroot);
-
   destruction_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(long***)&BSTtree,n);
   fclose(freqFile);
   free(tab);

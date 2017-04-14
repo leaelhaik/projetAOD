@@ -140,7 +140,7 @@ int main (int argc, char *argv[]) {
   memorisation(tab,tab_cout,racine,tab2f,n);
   BST_rec(tab2f,tab_cout,racine,0,n-1);
   BST_fin(BSTtree,racine,0,n-1);
-  printf("BSTroot : %ld", BSTroot);
+  printf("BSTroot : %ld\n", BSTroot);
   afficheBST(n);
   BSTroot=racine[0][n-1];
   destruction_tabs((double***)&tab_cout,(long***)&racine,(double***)&tab2f,(long***)&BSTtree,n);

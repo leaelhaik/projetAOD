@@ -37,20 +37,15 @@ int read(FILE *freqFile, double *tab, int n) {
   long* num_lu = (long*) malloc(sizeof(long)*n);
   for (int count=0; count < n; ++count) {
     fscanf(freqFile, "%ld", &num_lu[count]);
-    //printf("%ld - ",num_lu[count]);
   }
-  //printf("\n");
 
   long sum=0;
   for (int i=0; i<n; i++) {
     sum+=num_lu[i];
   }
-  //printf("sum = %ld \n", sum);
   for (int i=0; i<n; i++) {
     tab[i]=(double)num_lu[i]/sum;
-    //printf("%lf - ",tab[i]);
   }
-  //printf("\n");
 
   free(num_lu);
   return EXIT_SUCCESS;

@@ -1,3 +1,15 @@
+/*! \file BST.c
+*  \brief	   This implements the package for BST.
+*  \author    Lea El Haik
+*  \author    Pierre Brossy
+*  \version   1.0
+*  \date      5/04/2017
+*  \warning   Usage: compileBST n originalFile
+*  \copyright GNU Public License.
+*/
+
+
+
 #include "BST.h"
 
 void affiche_tab(long** tab, double ligne, double colonne ){

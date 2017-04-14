@@ -27,16 +27,23 @@ BROSSY Pierre (SLE)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Principe de notre  programme (1 point)}
-{\em Mettre ici une explication brève du principe de votre programme en  précisant la méthode implantée (récursive, itérative) et les
-choix effectués (notamment pour l'ordonnancement des instructions).
-} \\
-Dans un premier temps, notre programme lit le fichier afin de récupérér les entiers constituant l'arbre.
-A partir de ces valeurs, on crée un tableau de taille $n$ pour stocker les fréquences de recherche des entiers lus.
-Par un principe de memoïsation, on va en déduire le tableau des coûts et le tableau des racines des ABR possibles.
-Ensuite, en prenant en compte qu'un sous ABR d'un ABR optimal est optimal, on peut utiliser la récursivité afin de trouver l'ABR optimal. 
+\section{Principe de notre  programme}
 
+Dans un premier temps, notre programme lit le fichier afin de récupérér les entiers constituant l'arbre. \\
+A partir de ces valeurs, on crée un tableau de taille \texttt{n} pour stocker les fréquences de recherche des entiers lus. Les fréquences sont stockées dans le un tableau de type \texttt{(double*)}
+Par un principe de memoïsation, on va en déduire le tableau des coûts et le tableau des racines des ABR possibles. Ces tableaux sont de type \texttt{(double **)} sauf le tableau des racines qui est un \texttt{(long **)} car on a besoin d'utiliser les valeurs contenues dans ce tableau comme indices de tableau. Et le langage C n'autorise que les types \texttt{int} ou \texttt{long} en indice de tableau de plus nous avons instancié \texttt{BSTTree} en \texttt{long**} au lieu d'un \texttt{int**} pour pouvoir mieux gérer les grand nombres.\\
+Ensuite, en prenant en compte qu'un sous ABR d'un ABR optimal est optimal, on peut utiliser la récursivité afin de trouver l'ABR optimal. \\
 
+Concrétement, nous avons rajouté un package \texttt{BST.c} et \texttt{BST.h} qui nous permettent de créer, manipuler et libérer ces tableaux. Les tableaux utilisés sont :\\
+\begin{itemize}
+\item \texttt{tab2f} La matrice triangulaire supérieure initialisée dans mémorisation
+\item \texttt{tab_cout} La matrice initialisée dans mémorisation qui nous permet de stocker les résultats de la mémoïsation.
+\item \texttt{racine} L'arbre calculé dans \texttt{BST\_rec} qui contient les positions des racines de l'arbre. La racine de L'ABR optimal est \texttt{racine[i,j]}
+\end{itemize}
+
+Les fonctions principales sont implémentées en récursif et sont les deux fonctions $BST\_rec$ et $BST\_fin$. La première permet d'initialiser le tableau à deux dimensions des racines à l'aide du tableau de la matrice des fréquences et du tableau des coûts. \\
+
+$BST\_fin$ Quand à elle va remplir les valeurs de $BSTTree$ à l'aide de l'arbre $racine$ récursivement.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analyse du coût théorique (2 points)}
 {\em Donner ici l'analyse du coût théorique de votre programme en fonction du nombre $n$ d'éléments dans le dictionnaire.
@@ -54,57 +61,57 @@ Ensuite, en prenant en compte qu'un sous ABR d'un ABR optimal est optimal, on pe
       $$T(k_1, k_2) = ...  \mbox{~avec~les~conditions~initiales~....~} $$
       Le coût indiqué est obtenu en résolvant ce système par la méthode de  .... "
     }
-  \subsection{Place mémoire requise\,: }
+  \subsection{Place mémoire requise\,: $\Theta(n^2)$ }
     \paragraph{Justification\,: }
-
+    On stocke les valeurs dans 4 tableaux à deux dimensions. On a également un tableau de dimension $n$ et plusieurs variables annexes
   \subsection{Nombre de défauts de cache sur le modèle CO\,: }
     \paragraph{Justification\,: }
+    Soit $Z$ la taille du cache et $L$ la taille d'un bloc, c'est-à-dire que le cache contient $Z/L$ blocs (modèle CO).
+Dans la fonction \texttt{memorisation}, la partie triangulaire supérieure de la matrice \texttt{tab2f} est parcourue selon les lignes, ce qui engendre $\frac{n}{L}$ défauts de cache.
+Une exécution de la boucle \texttt{for} de la fonction \texttt{BST\_rec} avec comme paramètres $i$ et $j\geq i$ provoque $\frac{j-i}{L}$ défauts de cache, soit au total: $$\sum_{0\leq i\leq j\leq n}\frac{j-i}{L}=\frac{1}{L}\sum_{k=0}^n k=\frac{n(n+1)}{2L}$$ défauts de cache. On en déduit au total $\Theta(n^2)$ défauts de cache.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Compte rendu d'expérimentation (2 points)}
+\section{Compte rendu d'expérimentation}
   \subsection{Conditions expérimentaless}
-     {\em Décrire les conditions permettant la reproductibilité des mesures: on demande la description
-      de la machine et la méthode utilisée pour mesurer le temps.
-     }
+
 
     \subsubsection{Description synthétique de la machine\,:}
-      {\em indiquer ici le  processeur et sa fréquence, la mémoire, le système d'exploitation.
-       Préciser aussi si la machine était monopolisée pour un test, ou notamment si
-       d'autres processus ou utilisateurs étaient en cours d'exécution.
-      }
+Nous avons exécutés nos tests sur une machine avec Xubuntu. Les tests ont été compilés avec gcc 6.2.1.
+L'ordinateur tourne avex un processeur intel Pentium et possède 4Gb de RAM.
+L'ordinateur avait une connexion Internet désactivée , très peu de processus en train de tourner, en soit il a été monopolisé pour ces tests.
+Le temps a été mesuré à l'aide de la commande \texttt{/usr/bin/time} en utilisant le temps réel qui s'est déroulé.
 
     \subsubsection{Méthode utilisée pour les mesures de temps\,: }
-      {\em préciser ici  comment les mesures de temps ont été effectuées (fonction appelée) et l'unité de temps; en particulier,
-       préciser comment les 5 exécutions pour chaque test ont été faites (par exemple si le même test est fait 5 fois de suite, ou si les tests sont alternés entre
-       les mesures, ou exécutés en concurrence etc).
-      }
+Nous avons mesuré le temps execution à l'aide de la fonction \texttt{/usr/bin/time}.
+Nous ne prenions en compte que le temps réél. Nous appelions l'exécutable de la facon suivante.\\
+\texttt{time ./bin/compileBST <taille> <benchmark>}\\
+	Nous avons testé les benchmarks un par un : 5 itérations sur benchmark 1, puis benchmark2 etc
+
 
   \subsection{Mesures expérimentales}
-    {\em Compléter le tableau suivant par les temps d'exécution mesurés pour chacun des 6 benchmarks imposés
-              (temps minimum, maximum et moyen sur 5 exécutions)
-    }
 
     \begin{figure}[h]
       \begin{center}
         \begin{tabular}{|l||r||r|r|r||}
           \hline
           \hline
-            & coût         & temps     & temps   & temps \\
-            & du patch     & min       & max     & moyen \\
+            & temps     & temps   & temps \\
+            & min       & max     & moyen \\
           \hline
           \hline
-            benchmark1 &      &     &     &     \\
+            benchmark1      &  0.003s   & 0.009s    & 0.006s    \\
           \hline
-            benchmark2 &      &     &     &     \\
+            benchmark2       & 0.002s   & 0.049     & 0.012s     \\
           \hline
-            benchmark3 &      &     &     &     \\
+            benchmark3       & 10.108s  & 10.459s   & 10.180s    \\
           \hline
-            benchmark4 &      &     &     &     \\
+            benchmark4       & 75.958s     &  82.873s    & 81.405s    \\
           \hline
-            benchmark5 &      &     &     &     \\
+            benchmark5       & 252.091s    &  284.643s   & 276.825s     \\
           \hline
-            benchmark6 &      &     &     &     \\
+            benchmark6       & 1243.801s   & 1482.878s   & 1370.06s     \\
           \hline
           \hline
         \end{tabular}
@@ -114,20 +121,10 @@ Ensuite, en prenant en compte qu'un sous ABR d'un ABR optimal est optimal, on pe
     \end{figure}
 
 \subsection{Analyse des résultats expérimentaux}
-{\em Donner  une réponse justifiée  à la question\,:
-              les  temps mesurés correspondent ils  à votre analyse théorique (nombre d’opérations et défauts de cache) ?
-}
+Comme on peut le voir sur le relevé (disponible dans le fichier rapport). On voit que les résultats des tests se rapprochent d'un coût en temps de $\Theta(n^3)$. On a donc bien la pratique qui se rapproche du modèle théorique
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Question bonus\,: programme {\tt mystere.c}(2 points)}
-\subsection{Que fait le programme mystère et dans quel but? (1.5 point)}
-{\em Dire brièvement ce que fait le programme mystere et quel est l'impact lors de l'exécution
-(i.e. lors de recherches avec le dictionnaire) de ce post-traitement.}
 
-\subsection{Qu'en pensez-vous? (0.5 point) }
-{\em Répondre à l'argumentation en justifiant : soit que le programme mystere est (presque) optimal (justifier les hypothèses) ; soit qu'il n'est pas optimal en
-justifiant comment faire encore mieux.
-}
 
 \end{document}
 %% Fin mise au format
+

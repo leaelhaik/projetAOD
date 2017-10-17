@@ -37,3 +37,6 @@ clean:
 
 
 .PHONY: all doc binary report
+
+
+test
